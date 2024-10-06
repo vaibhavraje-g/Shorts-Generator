@@ -1,6 +1,7 @@
-const LLMInvoker = require('../llm/invoker');
-const chatbotTemplate = require('../llm/templates/chatbot');
-const scriptGeneratorTemplate = require('../llm/templates/scriptGenerator');
+const LLMInvoker = require('../services/llmService/invoker');
+const chatbotTemplate = require('../services/llmService/templates/chatbot');
+const scriptGeneratorTemplate = require('../services/llmService/templates/scriptGenerator');
+const logger = require('../utils/logger');
 
 let messages = [];
 
@@ -21,40 +22,24 @@ async function addMessage(msg) {
 
   if (msg.fromUser) {
     try {
-      let botResponse;
-      let isScript = false;
-      let scriptContent = null;
-
-      if (msg.text.toLowerCase().includes('create a script') || msg.text.toLowerCase().includes('generate a script')) {
-        const fullResponse = await scriptGeneratorInvoker.generate({ userMessage: msg.text });
-        try {
-          const parsedResponse = JSON.parse(fullResponse);
-          if (parsedResponse.script && parsedResponse.response) {
-            scriptContent = parsedResponse.script;
-            botResponse = parsedResponse.response;
-            isScript = true;
-          } else {
-            throw new Error('Invalid script format');
-          }
-        } catch (error) {
-          console.error('Error parsing script JSON:', error);
-          botResponse = "I'm sorry, I couldn't generate a proper script. Please try again.";
-        }
+      let response;
+      if (msg.text.toLowerCase().includes('script') || msg.text.toLowerCase().includes('generate')) {
+        response = await scriptGeneratorInvoker.generate({ userMessage: msg.text });
       } else {
-        botResponse = await chatbotInvoker.generate({ userMessage: msg.text });
+        response = await chatbotInvoker.generate({ userMessage: msg.text });
       }
-
+      
       const botMessage = {
-        text: botResponse,
+        text: response.response,
         fromUser: false,
         time: new Date(),
-        isScript: isScript,
-        scriptContent: scriptContent
+        isScript: !!response.script,
+        scriptContent: response.script
       };
       messages.push(botMessage);
       return botMessage;
     } catch (error) {
-      console.error('Error generating bot response:', error);
+      logger.error('Error generating bot response:', error);
       return {
         text: "I'm sorry, I encountered an error while processing your request.",
         fromUser: false,

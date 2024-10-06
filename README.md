@@ -1,32 +1,37 @@
 # Shorts Generator
 
+A web application for generating YouTube Shorts scripts using AI.
+
 ## Setup
 
 1. Clone the repository
 2. Install dependencies:
-   ```
-   cd Shorts-Generator
+   ```bash
+   cd Shorts-Generator/shorts-gen
    npm install
-   cd server
+   cd ../server
    npm install
    ```
 3. Set up environment variables:
    - Copy `.env.example` to `.env` in the `server` directory
-   - Replace `YOUR_API_KEY_HERE` with your actual Google API key
+   - Add your Google API key to the `.env` file
 
-## Running the application
+## Running locally
 
-1. Start the server:
-   ```
+1. Start the backend:
+   ```bash
    cd server
    npm run dev
    ```
-2. Start the Angular app:
-   ```
-   cd ..
+2. Start the frontend:
+   ```bash
+   cd ../shorts-gen
    ng serve
    ```
 
-## Note
+## Deployment
 
-Make sure not to commit your actual API keys to the repository.
+- Frontend: Deployed on Netlify
+- Backend: Deployed on Render
+
+For detailed deployment instructions, please refer to the deployment documentation.

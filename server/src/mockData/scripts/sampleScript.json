@@ -1,0 +1,21 @@
+{
+  "title": "Amazing Facts About Space",
+  "summary": "Discover mind-blowing facts about our universe in this short video.",
+  "scenes": [
+    {
+      "number": 1,
+      "image": "A starry night sky with a prominent full moon",
+      "voiceover": "Did you know that the moon is moving away from Earth at a rate of 1.5 inches per year?"
+    },
+    {
+      "number": 2,
+      "image": "A visualization of the Milky Way galaxy",
+      "voiceover": "Our Milky Way galaxy contains over 100 billion stars, and it's just one of billions of galaxies in the observable universe."
+    },
+    {
+      "number": 3,
+      "image": "An astronaut floating in space with Earth in the background",
+      "voiceover": "Space is completely silent because there is no air to carry sound waves. Astronauts use radios to communicate in space."
+    }
+  ]
+}
